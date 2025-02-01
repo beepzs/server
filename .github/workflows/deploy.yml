@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to SSH server
-        uses: appleboy/ssh-action@master
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           host: "ftpupload.net"  # Replace with your SSH host if using SSH
           username: "if0_38195008"  # Your SSH username
