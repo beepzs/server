@@ -14,12 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to SSH server
+      - name: Deploy to FTP server
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          host: "ftpupload.net"  # Replace with your SSH host if using SSH
-          username: "if0_38195008"  # Your SSH username
-          password: "WBZivbyPZG3zVfc"  # SSH password
-          script: |
-            cd /sush05.ct.ws/htdocs/
-            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --ignore-platform-reqs
+          server: "ftpupload.net"  # FTP server address
+          username: "if0_38195008"  # FTP username
+          password: "WBZivbyPZG3zVfc"  # FTP password
+          local-dir: "./"  # Path to your local directory (adjust this as needed)
+          server-dir: "/sush05.ct.ws/htdocs/"  # Path to the server's target directory
