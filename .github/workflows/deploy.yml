@@ -1,15 +1,21 @@
-name: Deploy to Server (SSH) Through Github actions
+name: Deploy to InfinityFree
+
 on:
   push:
     branches:
-      - main
+      - main  # Change to your default branch
+
 jobs:
-  Deploy-To-BCOD-Server:
-    needs: Check-PHP-8-syntax
+  deploy:
+    name: BIPIN FTP Deploy
     runs-on: ubuntu-latest
+
     steps:
-      - name: deploy webapi
-        uses: appleboy/ssh-action@master
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to FTP server
+        uses: ppleboy/ftp-action
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
           host: ${{ secrets.FTP_HOST }}
@@ -17,32 +23,3 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "./"  # Change to the directory you want to upload
           server-dir: /sush05.ct.ws/htdocs/  # Set the FTP folder path
-  Check-PHP-8-syntax:
-    name: "Linting with overtrue/phplint"
-    runs-on: "${{ matrix.operating-system }}"
-
-    strategy:
-      fail-fast: false
-
-      matrix:
-        operating-system:
-          - "ubuntu-20.04"
-
-        php-version:
-          - "8.3"
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup PHP runtime
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "${{ matrix.php-version }}"
-          coverage: "none"
-
-      - name: Lint PHP files
-        run: |
-          curl -Ls https://github.com/overtrue/phplint/releases/download/4.5.0/phplint.phar -o /usr/local/bin/phplint
-          chmod +x /usr/local/bin/phplint
-          /usr/local/bin/phplint -vvv --no-cache
