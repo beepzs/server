@@ -14,11 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to FTP server
+      - name: Deploy to SSH server
         uses: appleboy/ssh-action@master
         with:
-          host: "ftpupload.net"
-          username: "if0_38195008"
-          password: "WBZivbyPZG3zVfc"
-          local-dir: "./"  # Change to the directory you want to upload
-          server-dir: /sush05.ct.ws/htdocs/  # Set the FTP folder path
+          host: "ftpupload.net"  # Replace with your SSH host if using SSH
+          username: "if0_38195008"  # Your SSH username
+          password: "WBZivbyPZG3zVfc"  # SSH password
+          script: |
+            cd /sush05.ct.ws/htdocs/
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --ignore-platform-reqs
