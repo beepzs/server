@@ -17,6 +17,7 @@ jobs:
       - name: Deploy to FTP server
         uses: appleboy/ssh-action@master
         with:
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
           host: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
