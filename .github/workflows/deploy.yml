@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to FTP server
-        uses: ppleboy/ftp-action
+        uses: appleboy/ftp-action
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
           host: ${{ secrets.FTP_HOST }}
